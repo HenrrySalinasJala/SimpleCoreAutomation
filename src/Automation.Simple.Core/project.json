@@ -1,0 +1,12 @@
+﻿{
+  "dependencies": {
+    "log4net": "2.0.5",
+    "Selenium.WebDriver": "3.14.0"
+  },
+  "frameworks": {
+    "net452": {}
+  },
+  "runtimes": {
+    "win": {}
+  }
+}

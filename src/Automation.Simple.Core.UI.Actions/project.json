@@ -1,0 +1,14 @@
+﻿{
+  "dependencies": {
+    "AngleSharp": "0.9.10",
+    "log4net": "2.0.5",
+    "Selenium.Support": "3.14.0",
+    "Selenium.WebDriver": "3.14.0"
+  },
+  "frameworks": {
+    "net452": {}
+  },
+  "runtimes": {
+    "win": {}
+  }
+}

@@ -1,0 +1,17 @@
+﻿{
+  "dependencies": {
+    "AngleSharp": "0.9.10",
+    "log4net": "2.0.5",
+    "NUnit": "3.10.1",
+    "Selenium.Support": "3.14.0",
+    "Selenium.WebDriver": "3.14.0",
+    "Selenium.WebDriver.ChromeDriver": "2.43.0",
+    "SpecFlow": "2.3.1"
+  },
+  "frameworks": {
+    "net452": {}
+  },
+  "runtimes": {
+    "win": {}
+  }
+}
