@@ -41,14 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Constants\DOMAttributes.cs" />
     <Compile Include="Controls\BaseControl.cs" />
     <Compile Include="Controls\Browser\BrowserExtension.cs" />
     <Compile Include="Controls\Button\Button.cs" />
     <Compile Include="Controls\Button\IButton.cs" />
     <Compile Include="Controls\ControlFinder.cs" />
-    <Compile Include="Controls\Enums\ControlType.cs" />
     <Compile Include="Controls\IControlFinder.cs" />
     <Compile Include="Controls\IWebControl.cs" />
     <Compile Include="Controls\Label\ILabel.cs" />
@@ -58,7 +56,13 @@
     <Compile Include="Controls\Locators\BaseLocator.cs" />
     <Compile Include="Controls\Locators\XPath.cs" />
     <Compile Include="Controls\NotExistingControl.cs" />
+    <Compile Include="Controls\Table\ITable.cs" />
+    <Compile Include="Controls\Table\Table.cs" />
+    <Compile Include="Controls\TextField\ITextField.cs" />
+    <Compile Include="Controls\TextField\TextAreaField.cs" />
+    <Compile Include="Controls\TextField\TextField.cs" />
     <Compile Include="Enums\ControlType.cs" />
+    <Compile Include="Exceptions\ControlActionExecutionException.cs" />
     <Compile Include="Exceptions\ControlNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -75,5 +79,6 @@
       <Name>Automation.Simple.Helpers</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

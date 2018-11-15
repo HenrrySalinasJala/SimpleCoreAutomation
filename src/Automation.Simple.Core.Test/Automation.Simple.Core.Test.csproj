@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Controls\ButtonTest.cs" />
     <Compile Include="Controls\ControlFinderTest.cs" />
+    <Compile Include="Controls\TableTest.cs" />
     <Compile Include="DriverManagerTest.cs" />
     <Compile Include="Integration\FormControlsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,6 +88,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Controls\Table.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Controls\Controls.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

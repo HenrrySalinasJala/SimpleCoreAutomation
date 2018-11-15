@@ -3,7 +3,7 @@
     using Automation.Simple.Helpers;
     using AngleSharp.Dom;
     using Automation.Simple.Core.UI.Constants;
-    using Automation.Simple.Core.UI.Controls.Enums;
+    using Automation.Simple.Core.UI.Enums;
     using Automation.Simple.Helpers.Utilities;
     using OpenQA.Selenium;
     using System;
@@ -35,7 +35,7 @@
         /// The generic XPath locator for the control container and controls.
         /// </summary>
         private const string GenericContainerControlXPath =
-            "//*[@data-auto-name='{0}']/descendant::*[@data-at-name='{1}']";
+            "//*[@data-at-name='{0}']/descendant::*[@data-at-name='{1}']";
 
         /// <summary>
         /// The separator character for Control Names.
@@ -232,7 +232,7 @@
 
 
         /// <summary>
-        /// Gets the HTML elements by name set in data-auto-name attribute.
+        /// Gets the HTML elements by name set in data-at-name attribute.
         /// </summary>
         /// <param name="htmlSource">The HTML source.</param>
         /// <param name="name">The value of automation name attribute.</param>

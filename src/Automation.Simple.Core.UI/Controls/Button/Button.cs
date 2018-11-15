@@ -1,6 +1,6 @@
 ﻿namespace Automation.Simple.Core.UI.Controls.Button
 {
-    using Automation.Simple.Core.UI.Controls.Enums;
+    using Automation.Simple.Core.UI.Enums;
     using OpenQA.Selenium;
     using System;
 

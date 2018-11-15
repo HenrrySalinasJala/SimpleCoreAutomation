@@ -12,6 +12,10 @@ When I click More Salad button
 When I click More Bacon button
 When I click More Cheese button
 When I click More Meat button
+When I click More Salad button
+When I click More Bacon button
+When I click More Cheese button
+When I click More Meat button
 Then I should see '6.90' in Current Price
 
 Scenario: Build2 simple burger
@@ -20,4 +24,4 @@ When I click More Salad button
 When I click More Bacon button
 When I click More Cheese button
 When I click More Meat button
-When I clickjask Order now button
+

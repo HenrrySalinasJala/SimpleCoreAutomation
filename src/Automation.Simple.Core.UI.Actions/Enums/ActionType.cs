@@ -23,6 +23,8 @@
 
         Exist,
 
+        Exists,
+
         ItemExists,
 
         IsEnabled,

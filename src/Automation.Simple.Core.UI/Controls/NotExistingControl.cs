@@ -1,6 +1,6 @@
 ﻿namespace Automation.Simple.Core.UI.Controls
 {
-    using Automation.Simple.Core.UI.Controls.Enums;
+    using Automation.Simple.Core.UI.Enums;
     using OpenQA.Selenium;
 
 

@@ -94,6 +94,14 @@ testRunner.When("I click More Cheese button", ((string)(null)), ((TechTalk.SpecF
 #line 14
 testRunner.When("I click More Meat button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 15
+testRunner.When("I click More Salad button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 16
+testRunner.When("I click More Bacon button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 17
+testRunner.When("I click More Cheese button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 18
+testRunner.When("I click More Meat button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 19
 testRunner.Then("I should see \'6.90\' in Current Price", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -104,22 +112,20 @@ testRunner.Then("I should see \'6.90\' in Current Price", ((string)(null)), ((Te
         public virtual void Build2SimpleBurger()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Build2 simple burger", ((string[])(null)));
-#line 17
+#line 21
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 18
-testRunner.Given("I click Burger Builder button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 19
-testRunner.When("I click More Salad button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 20
-testRunner.When("I click More Bacon button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 21
-testRunner.When("I click More Cheese button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 22
-testRunner.When("I click More Meat button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.Given("I click Burger Builder button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 23
-testRunner.When("I click Order now button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("I click More Salad button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 24
+testRunner.When("I click More Bacon button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 25
+testRunner.When("I click More Cheese button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 26
+testRunner.When("I click More Meat button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             this.ScenarioCleanup();
         }

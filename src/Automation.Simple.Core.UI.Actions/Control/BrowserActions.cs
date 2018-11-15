@@ -19,6 +19,7 @@
             Driver.Navigate().GoToUrl(url);
         }
 
+
         public void CloseBrowser()
         {
             DriverManager.GetInstance().QuitDriver();

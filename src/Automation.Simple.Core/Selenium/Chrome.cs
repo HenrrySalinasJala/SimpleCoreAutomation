@@ -18,7 +18,6 @@
             return new ChromeDriver(chromeOptions);
         }
 
-        
         /// <summary>
         /// Gets the custom options for chrome driver.
         /// </summary>

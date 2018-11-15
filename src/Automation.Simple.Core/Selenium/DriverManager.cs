@@ -34,11 +34,14 @@ namespace Automation.Simple.Core.Selenium
         public void InitWebDriver()
         {
             log.Info("Initializing Driver");
-            _driver = DriverFactory.GetDriver("Chrome").InitDriver();
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(60);
-            _driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(30);
-            _driver.Manage().Window.Maximize();
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(40));
+            if (_driver==null)
+            {
+                _driver = DriverFactory.GetDriver("Chrome").InitDriver();
+                _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(60);
+                _driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(30);
+                _driver.Manage().Window.Maximize();
+                _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(40));
+            }
         }
 
         public IWebDriver GetDriver()

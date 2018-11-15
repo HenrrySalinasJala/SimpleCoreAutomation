@@ -3,14 +3,16 @@
     using Automation.Simple.Core.Environment;
     using Automation.Simple.Core.Selenium;
     using Automation.Simple.Core.UI.Controls.Browser;
-    using Automation.Simple.Core.UI.Controls.Enums;
     using Automation.Simple.Core.UI.Controls.Locators;
+    using Automation.Simple.Core.UI.Controls.Table;
+    using Automation.Simple.Core.UI.Enums;
     using Automation.Simple.Helpers;
     using log4net;
     using OpenQA.Selenium;
     using OpenQA.Selenium.Interactions;
     using OpenQA.Selenium.Support.UI;
     using System;
+    using System.Collections.Generic;
 
     public abstract class BaseControl : IWebControl
     {
@@ -27,7 +29,16 @@
 
         public string Name { get; private set; }
 
-        public string Type { get; private set; }
+        /// <summary>
+        /// The control type.
+        /// </summary>
+        public ControlType Type
+        {
+            get
+            {
+                return _type;
+            }
+        }
 
         protected By Locator { get; private set; }
 
@@ -43,12 +54,6 @@
         /// </summary>
         protected IWebElement _control;
 
-        public BaseControl(string name, string type)
-        {
-            Name = name;
-            Type = type;
-            SetUpControl();
-        }
 
         public BaseControl(XPath locator)
         {
@@ -61,18 +66,25 @@
             _type = type;
             Name = controlName;
             TimeoutInSeconds = timeout;
-            SetUpControl();
             Locator = searchCriteria;
+            SetUpControl();
         }
 
+        public BaseControl(ControlType type, string controlName, IWebElement control, int timeout)
+        {
+            _type = type;
+            Name = controlName;
+            TimeoutInSeconds = timeout;
+            _control = control;
+            SetUpControl();
+        }
         private void SetUpControl()
         {
-            var locator = $"//*[data-auto-name=\"{Name}\" ]";
-            Locator = By.XPath(locator);
-            //DriverManager.GetInstance().InitWebDriver();
+            
+            _type = ControlType.NotExistingControl;
             Driver = DriverManager.GetInstance().GetDriver();
             Wait = DriverManager.GetInstance().GetWait();
-            Action = new Actions(Driver);
+            Action = Driver != null ? new Actions(Driver) : null;
         }
 
 
@@ -85,9 +97,10 @@
             {
                 //Waits for any angular request.
                 BrowserExtension.WaitForAngular(Driver, TimeoutInSeconds);
-
                 if (Locator != null)
                 {
+                    BrowserExtension.WaitForAngular(Driver, TimeoutInSeconds);
+
                     //waits until the element exits.
                     GetExplicitWait(TimeoutInSeconds).Until(
                         ExpectedConditions.ElementExists(Locator));
@@ -103,7 +116,6 @@
                     //Waits for any angular request.
                     BrowserExtension.WaitForAngular(Driver, TimeoutInSeconds);
 
-                    //returns the element.
                     _control = Driver.FindElement(Locator);
                 }
                 return _control;
@@ -132,7 +144,7 @@
         {
             try
             {
-                
+
                 BrowserExtension.WaitForAngular(Driver, TimeoutInSeconds);
                 var displayed = Driver.FindElement(Locator).Displayed;
                 log.Debug($"The '{Name}' {Type.ToString()} is displayed: [{displayed}]");
@@ -159,7 +171,7 @@
             }
             catch (Exception error)
             {
-               log.Error($"Unable to determine if the '{Name}' {Type.ToString()} is enabled. Error [{error.Message}].");
+                log.Error($"Unable to determine if the '{Name}' {Type.ToString()} is enabled. Error [{error.Message}].");
                 return false;
             }
         }

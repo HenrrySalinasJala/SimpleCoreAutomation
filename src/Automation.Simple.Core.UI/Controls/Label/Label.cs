@@ -3,7 +3,7 @@
 namespace Automation.Simple.Core.UI.Controls.Label
 {
     using System;
-    using Automation.Simple.Core.UI.Controls.Enums;
+    using Automation.Simple.Core.UI.Enums;
     using OpenQA.Selenium;
 
     public class Label : BaseControl, ILabel
