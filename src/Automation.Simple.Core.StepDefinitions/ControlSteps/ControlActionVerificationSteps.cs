@@ -21,8 +21,8 @@
         /// <param name="expectedValue">The expected value.</param>
         /// <param name="controlName">The control name.</param>
         /// <param name="frame">The container name.</param>
-        [Then(@"I should( not|) see '(.*?)'(?: order|) in ((?!.*column).*?)(?: field| combo-box| label|)(?: on ([^']+?)|)(?: modal| form| section| panel| item| link|)")]
-        public void IShouldSeeValueInControl(string not, string expectedValue, string controlName,
+        [Then(@"(No |)Deberia ver '(.*?)' en(?: campo| combo-box| label| etiqueta|) (.*?)(?: en ([^']+?)|)(?: modal| form| section| panel| item| link|)")]
+        public void VerifyControlValue(string not, string expectedValue, string controlName,
             string frame)
         {
             var actualValue = ControlAction.ExecuteFunction(controlName, ActionType.GetText,

@@ -4,14 +4,11 @@
     using Automation.Simple.Core.UI.Controls.Browser;
     using Automation.Simple.Core.UI.Enums;
     using Automation.Simple.Core.UI.Exceptions;
-    //using Checkbox;
-    //using Commons;
     using Link;
     using OpenQA.Selenium;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    //using Utilities;
 
     /// <summary>
     /// Represents the table web control.

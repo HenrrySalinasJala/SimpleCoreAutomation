@@ -1,5 +1,6 @@
 ﻿{
   "dependencies": {
+    "NUnit": "3.10.1",
     "Selenium.WebDriver.ChromeDriver": "2.43.0",
     "SpecFlow": "2.3.1"
   },

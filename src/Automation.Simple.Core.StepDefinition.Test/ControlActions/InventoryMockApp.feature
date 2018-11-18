@@ -1,30 +1,30 @@
-﻿Feature: Mock Inventario
+﻿Característica: Mock Inventario
 	Como automatizador de escenarios de prueba
 	Necesito escribir pruebas de integracion
 	Con el objetivo de evitar errores
 
-Background: Set Up scenario
-Given I go to 'http://mock1.com'
+Antecedentes: Set Up scenario
+Dado I go to 'http://mock1.com'
 
 @BVT
-Scenario: Login a aplicacion mock 
-Given I fill 'admin' in Usuario field
-And I fill 'admin' in Password field
-When I click Acceder button
-Then I should see 'Administrador' in Informacion de usuario field on cabecera
-When I click Productos on menu
-	And I click Agregar Producto on pagina
-	And I fill 'PROD122' in Codigo de barras
-	And I fill 'PROD ASD' in Nombre
-	And I fill 'Description ' in Descripcion
-	And I fill '90.1' in Precio de entrada
-	And I fill '80.1' in precio de salida
-	And I fill 'Lts' in Unidad
-	And I fill 'Botella' in presentacion
-	And I fill '10' in Minima en inventario
-	And I fill '90' in Inventario inicial
-	And I click Agregar producto button
-#Then I should see the following values in Lista de Productos
+Escenario: Login a aplicacion mock 
+Dado Se escribe 'admin' en campo Usuario
+Y Se escribe 'admin' en campo Password
+Cuando Se hace click en boton Acceder
+Entonces Deberia ver 'Administrador' en Informacion de usuario field en cabecera
+Cuando Se hace click en Productos en menu
+	Y Se hace click en Agregar Producto en pagina
+	Y Se escribe 'PROD122' en Codigo de barras
+	Y Se escribe 'PROD ASD' en Nombre
+	Y Se escribe 'Description ' en Descripcion
+	Y Se escribe '90.1' en Precio de entrada
+	Y Se escribe '80.1' en precio de salida
+	Y Se escribe 'Lts' en Unidad
+	Y Se escribe 'Botella' en presentacion
+	Y Se escribe '10' en Minima en inventario
+	Y Se escribe '90' en Inventario inicial
+	Y Se hace click en Agregar producto
+#Entonces I should see the following values in Lista de Productos
 #	| Campo  | Valor |
 #	| Codigo | 331   |
 #	| Nombre | 331   |

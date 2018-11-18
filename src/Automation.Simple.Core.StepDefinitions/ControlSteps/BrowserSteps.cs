@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Automation.Simple.Core.UI.Actions.Control;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Bindings;
 
 namespace Automation.Simple.Core.StepDefinitions.ControlSteps
 {
@@ -16,6 +17,7 @@ namespace Automation.Simple.Core.StepDefinitions.ControlSteps
         }
 
         [Given(@"I go to '(.*?)'")]
+        [When(@"I go to '(.*?)'")]
         public void GivenIGoThePag(string url)
         {
             var browserActions = new BrowserActions();
@@ -23,5 +25,4 @@ namespace Automation.Simple.Core.StepDefinitions.ControlSteps
         }
 
     }
-
 }

@@ -31,7 +31,7 @@ namespace Automation.Simple.Core.StepDefinition.Test.ControlActions
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Mock Inventario", "\tComo automatizador de escenarios de prueba\r\n\tNecesito escribir pruebas de integr" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("es-LA"), "Mock Inventario", "\tComo automatizador de escenarios de prueba\r\n\tNecesito escribir pruebas de integr" +
                     "acion\r\n\tCon el objetivo de evitar errores", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -68,7 +68,7 @@ namespace Automation.Simple.Core.StepDefinition.Test.ControlActions
         {
 #line 6
 #line 7
-testRunner.Given("I go to \'http://mock1.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+testRunner.Given("I go to \'http://mock1.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
 #line hidden
         }
         
@@ -84,37 +84,37 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line 11
-testRunner.Given("I fill \'admin\' in Usuario field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+testRunner.Given("Se escribe \'admin\' en campo Usuario", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
 #line 12
-testRunner.And("I fill \'admin\' in Password field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("Se escribe \'admin\' en campo Password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
 #line 13
-testRunner.When("I click Acceder button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("Se hace click en boton Acceder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Cuando ");
 #line 14
-testRunner.Then("I should see \'Administrador\' in Informacion de usuario field on cabecera", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("Deberia ver \'Administrador\' en Informacion de usuario field en cabecera", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entonces ");
 #line 15
-testRunner.When("I click Productos on menu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("Se hace click en Productos en menu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Cuando ");
 #line 16
- testRunner.And("I click Agregar Producto on pagina", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Se hace click en Agregar Producto en pagina", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
 #line 17
- testRunner.And("I fill \'PROD122\' in Codigo de barras", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Se escribe \'PROD122\' en Codigo de barras", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
 #line 18
- testRunner.And("I fill \'PROD ASD\' in Nombre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Se escribe \'PROD ASD\' en Nombre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
 #line 19
- testRunner.And("I fill \'Description \' in Descripcion", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Se escribe \'Description \' en Descripcion", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
 #line 20
- testRunner.And("I fill \'90.1\' in Precio de entrada", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Se escribe \'90.1\' en Precio de entrada", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
 #line 21
- testRunner.And("I fill \'80.1\' in precio de salida", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Se escribe \'80.1\' en precio de salida", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
 #line 22
- testRunner.And("I fill \'Lts\' in Unidad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Se escribe \'Lts\' en Unidad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
 #line 23
- testRunner.And("I fill \'Botella\' in presentacion", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Se escribe \'Botella\' en presentacion", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
 #line 24
- testRunner.And("I fill \'10\' in Minima en inventario", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Se escribe \'10\' en Minima en inventario", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
 #line 25
- testRunner.And("I fill \'90\' in Inventario inicial", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Se escribe \'90\' en Inventario inicial", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
 #line 26
- testRunner.And("I click Agregar producto button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Se hace click en Agregar producto", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
 #line hidden
             this.ScenarioCleanup();
         }
