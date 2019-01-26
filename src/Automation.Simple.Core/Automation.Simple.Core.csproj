@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\BrowserType.cs" />
+    <Compile Include="Exceptions\BrowserNotSupportedException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Selenium\Chrome.cs" />
     <Compile Include="Selenium\DriverFactory.cs" />
@@ -51,5 +53,11 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Automation.Simple.Helpers\Automation.Simple.Helpers.csproj">
+      <Project>{3059e73e-8f72-4c1a-8393-400cdc18d79b}</Project>
+      <Name>Automation.Simple.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

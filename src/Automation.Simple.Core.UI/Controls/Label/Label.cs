@@ -4,6 +4,7 @@ namespace Automation.Simple.Core.UI.Controls.Label
 {
     using System;
     using Automation.Simple.Core.UI.Enums;
+    using Automation.Simple.Core.UI.Exceptions;
     using OpenQA.Selenium;
 
     public class Label : BaseControl, ILabel
@@ -23,12 +24,12 @@ namespace Automation.Simple.Core.UI.Controls.Label
                 log.Info($"Get text from '{Name}' {Type}.");
                 string text = Control.Text;
                 log.Debug($"Text retrieved from '{Name}' {Type}: [{text}].");
-                return text;
+                return text.Trim();
             }
             catch (Exception error)
             {
                 log.Error($"Unable to get the text from '{Name}' {Type}. Error [{error.Message}].");
-                throw;
+                throw new ControlActionExecutionException(Name, Type, error.Message); ;
             }
         }
     }

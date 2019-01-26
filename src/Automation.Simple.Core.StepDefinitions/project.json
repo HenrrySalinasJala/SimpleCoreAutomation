@@ -1,5 +1,7 @@
 ﻿{
   "dependencies": {
+    "ExtentReports": "3.1.1",
+    "FluentAssertions": "5.5.3",
     "log4net": "2.0.5",
     "NUnit": "3.10.1",
     "SpecFlow": "2.3.1"

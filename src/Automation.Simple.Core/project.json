@@ -1,7 +1,8 @@
 ﻿{
   "dependencies": {
     "log4net": "2.0.5",
-    "Selenium.WebDriver": "3.14.0"
+    "Selenium.Firefox.WebDriver": "0.21.0",
+    "Selenium.WebDriver": "3.141.0"
   },
   "frameworks": {
     "net452": {}

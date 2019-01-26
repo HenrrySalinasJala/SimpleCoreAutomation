@@ -142,5 +142,10 @@
         /// </summary>
         internal const string Last = "last";
 
+        /// <summary>
+        /// The tag name for the input control.
+        /// </summary>
+        internal const string SelectTagName = "select";
+
     }
 }

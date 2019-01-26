@@ -3,5 +3,6 @@
     public interface IButton
     {
         void Click();
+        string GetText();
     }
 }

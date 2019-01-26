@@ -51,6 +51,11 @@
         public static string WebAppUrl = GetString(Keys.WebAppUrl, "https://google.com/");
 
         /// <summary>
+        /// The web browser.
+        /// </summary>
+        public static string Browser = GetString(Keys.Browser, "Chrome");
+
+        /// <summary>
         /// Gets value as a string.
         /// </summary>
         /// <param name="keyName">key name as a string.</param>

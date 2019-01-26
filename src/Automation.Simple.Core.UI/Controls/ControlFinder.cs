@@ -1,22 +1,21 @@
 ﻿namespace Automation.Simple.Core.UI.Controls
 {
-    using Automation.Simple.Helpers;
     using AngleSharp.Dom;
+    using AngleSharp.Dom.Html;
+    using AngleSharp.Parser.Html;
+    using Automation.Simple.Core.Environment;
+    using Automation.Simple.Core.Selenium;
     using Automation.Simple.Core.UI.Constants;
     using Automation.Simple.Core.UI.Enums;
+    using Automation.Simple.Core.UI.Exceptions;
+    using Automation.Simple.Helpers;
     using Automation.Simple.Helpers.Utilities;
+    using log4net;
     using OpenQA.Selenium;
     using System;
-    using Automation.Simple.Core.Environment;
     using System.Collections.Generic;
-    using AngleSharp.Parser.Html;
-    using AngleSharp.Dom.Html;
     using System.Linq;
     using System.Reflection;
-    using Automation.Simple.Core.UI.Exceptions;
-    using log4net;
-    using Automation.Simple.Core.Selenium;
-    using Automation.Simple.Core.UI.Controls.Browser;
 
     public class ControlFinder
     {
@@ -114,7 +113,7 @@
             }
             catch (Exception error)
             {
-                log.Error($"Unable to get the control '{controlName}'. Error: {error.Message}.");
+                throw new ControlNotFoundException(error.Message);
             }
             return control;
         }

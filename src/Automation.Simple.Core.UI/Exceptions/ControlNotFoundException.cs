@@ -20,7 +20,7 @@
         /// <param name="message">The error message that explains the reason for the exception.</param>
         public ControlNotFoundException(string message) : base(message)
         {
-            log.Error(message);
+            log.Error($"Unable to find control {message}");
         }
     }
 }

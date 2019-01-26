@@ -1,19 +1,26 @@
 ﻿namespace Automation.Simple.Core.UI.Controls.TextField
 {
-    using System;
-    using OpenQA.Selenium;
-    using Automation.Simple.Core.UI.Enums;
-    using Automation.Simple.Core.UI.Controls.Browser;
-    using OpenQA.Selenium.Support.UI;
     using Automation.Simple.Core.UI.Constants;
+    using Automation.Simple.Core.UI.Controls.Browser;
+    using Automation.Simple.Core.UI.Enums;
+    using Automation.Simple.Core.UI.Exceptions;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Support.UI;
+    using System;
 
     /// <summary>
     /// Represents the text field web control.
     /// </summary>
     public class TextField : BaseControl, ITextField
     {
+
         public TextField(string controlName, By searchCriteria, int timeout)
             : base(ControlType.TextField, controlName, searchCriteria, timeout)
+        {
+        }
+
+        public TextField(ControlType controlType, string controlName, By searchCriteria, int timeout)
+            : base(controlType, controlName, searchCriteria, timeout)
         {
         }
 
@@ -25,7 +32,7 @@
             get
             {
                 //Waits for any angular request.
-                BrowserExtension.WaitForAngular(Driver,TimeoutInSeconds);
+                BrowserExtension.WaitForAngular(Driver, TimeoutInSeconds);
 
                 if (Locator != null)
                 {
@@ -38,7 +45,7 @@
                         ExpectedConditions.ElementIsVisible(Locator));
 
                     //Waits for any angular request.
-                    BrowserExtension.WaitForAngular(Driver,TimeoutInSeconds);
+                    BrowserExtension.WaitForAngular(Driver, TimeoutInSeconds);
 
                     //returns the element.
                     _control = Driver.FindElement(Locator);
@@ -87,7 +94,7 @@
             catch (Exception error)
             {
                 log.Error($"Unable to clear the text in '{Name}' {Type}. Error [{error.Message}].");
-                throw;
+                throw new ControlActionExecutionException(Name, Type, error.Message);
             }
         }
 
@@ -99,7 +106,6 @@
         {
             try
             {
-                
                 var text = Control.GetAttribute(DOMAttributes.ValueAttribute);
                 log.Info($"Text retrieved from '{Name}' {Type}: [{text}].");
                 return text;
@@ -107,7 +113,7 @@
             catch (Exception error)
             {
                 log.Error($"Unable to get the text from '{Name}' {Type}. Error [{error.Message}].");
-                throw;
+                throw new ControlActionExecutionException(Name, Type, error.Message);
             }
         }
 
@@ -126,7 +132,7 @@
             catch (Exception error)
             {
                 log.Error($"Unable to get the placeholder text from '{Name}' {Type}. Error [{error.Message}].");
-                throw;
+                throw new ControlActionExecutionException(Name, Type, error.Message);
             }
         }
 
@@ -145,7 +151,7 @@
             catch (Exception error)
             {
                 log.Error($"Unable to set the text in '{Name}' {Type}. Error [{error.Message}].");
-                throw;
+                throw new ControlActionExecutionException(Name, Type, error.Message);
             }
         }
 

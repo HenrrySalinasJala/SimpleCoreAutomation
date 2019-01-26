@@ -5,7 +5,7 @@
     /// </summary>
     public enum ActionType
     {
-        SelectItem,
+        Select,
 
         SetText,
 
@@ -37,6 +37,8 @@
 
         IsChecked,
 
+        IsSelected,
+
         GetURL,
 
         Clear,
@@ -48,5 +50,7 @@
         DoubleClick,
 
         FillValue,
+
+        AreSelected,
     }
 }

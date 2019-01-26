@@ -47,18 +47,36 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\LabelTest.cs" />
+    <Compile Include="Controls\RadioTest.cs" />
+    <Compile Include="Controls\CheckboxTest.cs" />
+    <Compile Include="Controls\TableTest.cs" />
+    <Compile Include="Controls\TextAreaField.cs" />
+    <Compile Include="Controls\TextFieldTest.cs" />
+    <Compile Include="Controls\LinkTest.cs" />
     <Compile Include="Controls\ButtonTest.cs" />
     <Compile Include="Controls\ControlFinderTest.cs" />
-    <Compile Include="Controls\TableTest.cs" />
     <Compile Include="DriverManagerTest.cs" />
-    <Compile Include="Integration\FormControlsTest.cs" />
+    <Compile Include="Integration\BaseTest.cs" />
+    <Compile Include="Integration\ButtonTest.cs" />
+    <Compile Include="Integration\CheckboxTest.cs" />
+    <Compile Include="Integration\MultiselectDropdownTest.cs" />
+    <Compile Include="Integration\DropdownTest.cs" />
+    <Compile Include="Integration\LinkTest.cs" />
+    <Compile Include="Integration\RadioButtonTest.cs" />
+    <Compile Include="Integration\SetUpFixture.cs" />
+    <Compile Include="Integration\TextAreaTest.cs" />
+    <Compile Include="Integration\TextFieldTest.cs" />
+    <Compile Include="Integration\TableTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StepDefinition\BaseControlActionTest.cs" />
     <Compile Include="StepDefinition\ControlActionStepsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="log4net.config" />
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -79,7 +97,7 @@
       <Name>Automation.Simple.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Automation.Simple.Helpers\Automation.Simple.Helpers.csproj">
-      <Project>{3059E73E-8F72-4C1A-8393-400CDC18D79B}</Project>
+      <Project>{3059e73e-8f72-4c1a-8393-400cdc18d79b}</Project>
       <Name>Automation.Simple.Helpers</Name>
     </ProjectReference>
   </ItemGroup>
@@ -90,10 +108,11 @@
     <Content Include="Resources\Controls\Controls.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Integration\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ExpresionRegular\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,12 +1,13 @@
-﻿using OpenQA.Selenium;
-
-namespace Automation.Simple.Core.Selenium
+﻿namespace Automation.Simple.Core.Selenium
 {
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Firefox;
+
     internal class Firefox : IDriver
     {
         public IWebDriver InitDriver()
         {
-            throw new System.NotImplementedException();
+            return new FirefoxDriver();
         }
     }
 }

@@ -42,7 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Control\BrowserActions.cs" />
-    <Compile Include="Control\ControlAction.cs" />
+    <Compile Include="Control\ControlActions.cs" />
+    <Compile Include="Control\LoginActions.cs" />
     <Compile Include="Enums\ActionType.cs" />
     <Compile Include="Exceptions\ControlActionException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,9 +61,13 @@
       <Name>Automation.Simple.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Automation.Simple.Helpers\Automation.Simple.Helpers.csproj">
-      <Project>{3059E73E-8F72-4C1A-8393-400CDC18D79B}</Project>
+      <Project>{3059e73e-8f72-4c1a-8393-400cdc18d79b}</Project>
       <Name>Automation.Simple.Helpers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>nuget pack $(SolutionDir)SimpleCoreAutomation.nuspec
+nuget push *.nupkg -source "$(SolutionDir)NugetPackage"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

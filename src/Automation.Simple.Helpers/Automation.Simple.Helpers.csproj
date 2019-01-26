@@ -54,6 +54,9 @@
     <Compile Include="Reflection\DelegateHelper.cs" />
     <Compile Include="TimeoutHelper.cs" />
     <Compile Include="Utilities\DescriptionAttributeUtil.cs" />
+    <Compile Include="Utilities\FileUtil.cs" />
+    <Compile Include="Utilities\FolderUtil.cs" />
+    <Compile Include="Utilities\OSUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />

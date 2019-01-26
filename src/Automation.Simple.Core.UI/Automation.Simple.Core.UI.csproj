@@ -46,9 +46,13 @@
     <Compile Include="Controls\Browser\BrowserExtension.cs" />
     <Compile Include="Controls\Button\Button.cs" />
     <Compile Include="Controls\Button\IButton.cs" />
+    <Compile Include="Controls\Checkbox\Checkbox.cs" />
+    <Compile Include="Controls\Checkbox\ICheckbox.cs" />
     <Compile Include="Controls\ControlFinder.cs" />
-    <Compile Include="Controls\IControlFinder.cs" />
-    <Compile Include="Controls\IWebControl.cs" />
+    <Compile Include="Controls\Dropdown\Dropdown.cs" />
+    <Compile Include="Controls\Dropdown\IDropdown.cs" />
+    <Compile Include="Controls\Dropdown\IMultiselect.cs" />
+    <Compile Include="Controls\Dropdown\MultiselectDropdown.cs" />
     <Compile Include="Controls\Label\ILabel.cs" />
     <Compile Include="Controls\Label\Label.cs" />
     <Compile Include="Controls\Link\ILink.cs" />
@@ -56,8 +60,11 @@
     <Compile Include="Controls\Locators\BaseLocator.cs" />
     <Compile Include="Controls\Locators\XPath.cs" />
     <Compile Include="Controls\NotExistingControl.cs" />
+    <Compile Include="Controls\RadioButton\IRadioButton.cs" />
+    <Compile Include="Controls\RadioButton\RadioButton.cs" />
     <Compile Include="Controls\Table\ITable.cs" />
     <Compile Include="Controls\Table\Table.cs" />
+    <Compile Include="Controls\TextField\DateField.cs" />
     <Compile Include="Controls\TextField\ITextField.cs" />
     <Compile Include="Controls\TextField\TextAreaField.cs" />
     <Compile Include="Controls\TextField\TextField.cs" />
@@ -75,7 +82,7 @@
       <Name>Automation.Simple.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Automation.Simple.Helpers\Automation.Simple.Helpers.csproj">
-      <Project>{3059E73E-8F72-4C1A-8393-400CDC18D79B}</Project>
+      <Project>{3059e73e-8f72-4c1a-8393-400cdc18d79b}</Project>
       <Name>Automation.Simple.Helpers</Name>
     </ProjectReference>
   </ItemGroup>

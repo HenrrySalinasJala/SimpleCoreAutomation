@@ -4,6 +4,7 @@
     using System;
     using Automation.Simple.Core.UI.Enums;
     using Automation.Simple.Core.UI.Constants;
+    using Automation.Simple.Core.UI.Exceptions;
 
     /// <summary>
     /// Represents the Text Area field web control.
@@ -13,7 +14,7 @@
         /// <summary>
         /// The xpath of text area 
         /// </summary>
-        private string _textAreaInputXpath  = "descendant::textarea";
+        private string _textAreaInputXpath  = "descendant::select";
 
         public TextAreaField(string controlName, By searchCriteria, int timeout)
             : base(ControlType.TextAreaField, controlName, searchCriteria, timeout)
@@ -47,8 +48,7 @@
             }
             catch (Exception error)
             {
-                log.Error($"Unable to clear the text in '{Name}' {Type}. Error [{error.Message}].");
-                throw;
+                throw new ControlActionExecutionException(Name, Type, error.Message);
             }
         }
 
@@ -62,12 +62,11 @@
             {
                 var text = TextAreaInput.GetAttribute(DOMAttributes.ValueAttribute);
                 log.Info($"Text retrieved from '{Name}' {Type}: [{text}].");
-                return text;
+                return text.Trim();
             }
             catch (Exception error)
             {
-                log.Error($"Unable to get the text from '{Name}' {Type}. Error [{error.Message}].");
-                throw;
+                throw new ControlActionExecutionException(Name, Type, error.Message);
             }
         }
 
@@ -84,8 +83,7 @@
             }
             catch (Exception error)
             {
-                log.Error($"Unable to press the TAB key in '{Name}' {Type}. Error [{error.Message}].");
-                throw;
+                throw new ControlActionExecutionException(Name, Type, error.Message);
             }
         }
 
@@ -103,8 +101,7 @@
             }
             catch (Exception error)
             {
-                log.Error($"Unable to set the text in '{Name}' {Type}. Error [{error.Message}].");
-                throw;
+                throw new ControlActionExecutionException(Name, Type, error.Message);
             }
         }
     }

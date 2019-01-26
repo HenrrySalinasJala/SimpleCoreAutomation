@@ -28,7 +28,7 @@ namespace Automation.Simple.Core.UI.Controls.Browser
             }
             catch (Exception error)
             {
-                log.Debug($"Unable to exeucte the script '{script}'. Error [{error.Message}].");
+                log.Debug($"Unable to execute the script '{script}'. Error [{error.Message}].");
                 return null;
             }
         }

@@ -11,13 +11,13 @@ namespace Automation.Simple.Core.Test.StepDefinition
     public class BaseControlActionTest
     {
         public BrowserActions BrowserAction;
-        private ControlAction ControlAction;
+        private ControlActions ControlAction;
 
 
         public  BaseControlActionTest()
         {
             BrowserAction = new BrowserActions();
-            ControlAction = new ControlAction();
+            ControlAction = new ControlActions();
             BrowserAction.GoTo(Config.WebAppUrl);
         }
     }

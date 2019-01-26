@@ -1,10 +1,9 @@
 ﻿namespace Automation.Simple.Core.UI.Controls.Link
 {
-    using System;
-    using Automation.Simple.Core.UI.Controls.Browser;
     using Automation.Simple.Core.UI.Enums;
+    using Automation.Simple.Core.UI.Exceptions;
     using OpenQA.Selenium;
-    using OpenQA.Selenium.Support.UI;
+    using System;
 
     public class Link : BaseControl, ILink
     {
@@ -27,12 +26,12 @@
                 log.Info($"Get url from '{Name}' {Type}.");
                 string url = Control.GetAttribute("href");
                 log.Debug($"URL retrieved from '{Name}' {Type}: [{url}].");
-                return url;
+                return url.Trim();
             }
             catch (Exception error)
             {
                 log.Error($"Unable to get the URL from '{Name}' {Type}. Error [{error.Message}].");
-                throw;
+                throw new ControlActionExecutionException(Name, Type, error.Message);
             }
         }
 
@@ -47,12 +46,12 @@
                 log.Info($"Get text from '{Name}' {Type}.");
                 string text = Control.GetAttribute("innerText");
                 log.Debug($"Text retrieved from '{Name}' {Type}: [{text}].");
-                return text;
+                return text.Trim();
             }
             catch (Exception error)
             {
                 log.Error($"Unable to get the text from '{Name}' {Type}. Error [{error.Message}].");
-                throw;
+                throw new ControlActionExecutionException(Name, Type, error.Message);
             }
         }
 
@@ -68,8 +67,7 @@
             }
             catch (Exception error)
             {
-                log.Error($"Unable to click on '{Name}' {Type}. Error [{error}].");
-                throw;
+                throw new ControlActionExecutionException(Name, Type, error.Message);
             }
         }
 

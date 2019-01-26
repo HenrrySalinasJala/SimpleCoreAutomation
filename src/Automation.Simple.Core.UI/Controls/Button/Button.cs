@@ -1,6 +1,7 @@
 ﻿namespace Automation.Simple.Core.UI.Controls.Button
 {
     using Automation.Simple.Core.UI.Enums;
+    using Automation.Simple.Core.UI.Exceptions;
     using OpenQA.Selenium;
     using System;
 
@@ -24,8 +25,7 @@
             }
             catch (Exception error)
             {
-                log.Error($"Unable to click on '{Name}' {Type}. Error [{error.Message}].");
-                throw;
+                throw new ControlActionExecutionException(Name,Type,error.Message);
             }
         }
 

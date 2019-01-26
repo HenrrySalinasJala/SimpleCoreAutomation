@@ -32,7 +32,7 @@ namespace Automation.Simple.Core.StepDefinition.Test.ControlActions
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("es-LA"), "Mock Inventario", "\tComo automatizador de escenarios de prueba\r\n\tNecesito escribir pruebas de integr" +
-                    "acion\r\n\tCon el objetivo de evitar errores", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    "acion\r\n\tCon el objetivo de evitar errores inesperados en el sistema", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -64,57 +64,150 @@ namespace Automation.Simple.Core.StepDefinition.Test.ControlActions
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void FeatureBackground()
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Test Login")]
+        [NUnit.Framework.CategoryAttribute("BVT")]
+        public virtual void TestLogin()
         {
-#line 6
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Test Login", new string[] {
+                        "BVT"});
 #line 7
-testRunner.Given("I go to \'http://mock1.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
+this.ScenarioSetup(scenarioInfo);
+#line 8
+testRunner.Given("Se navega a \'http://mock1.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
+#line 9
+ testRunner.When("Se autentica como usuario por defecto", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Cuando ");
+#line 10
+testRunner.Then("Debería ver \'Administrador\' en Informacion de usuario en cabecera", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entonces ");
 #line hidden
+            this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Login a aplicacion mock")]
+        [NUnit.Framework.DescriptionAttribute("Test Crear categoría")]
         [NUnit.Framework.CategoryAttribute("BVT")]
-        public virtual void LoginAAplicacionMock()
+        public virtual void TestCrearCategoria()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login a aplicacion mock", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Test Crear categoría", new string[] {
                         "BVT"});
-#line 10
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line 11
-testRunner.Given("Se escribe \'admin\' en campo Usuario", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
-#line 12
-testRunner.And("Se escribe \'admin\' en campo Password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
 #line 13
-testRunner.When("Se hace click en boton Acceder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Cuando ");
+this.ScenarioSetup(scenarioInfo);
 #line 14
-testRunner.Then("Deberia ver \'Administrador\' en Informacion de usuario field en cabecera", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entonces ");
+testRunner.Given("Se navega a \'http://mock1.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
 #line 15
-testRunner.When("Se hace click en Productos en menu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Cuando ");
+testRunner.When("Se autentica como usuario por defecto", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Cuando ");
 #line 16
- testRunner.And("Se hace click en Agregar Producto en pagina", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+testRunner.Then("Debería ver \'Administrador\' en Informacion de usuario en cabecera", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entonces ");
 #line 17
- testRunner.And("Se escribe \'PROD122\' en Codigo de barras", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+testRunner.When("Se hace click en Catalogos en menu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Cuando ");
 #line 18
- testRunner.And("Se escribe \'PROD ASD\' en Nombre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+ testRunner.And("Se hace click en Categorias en menu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
 #line 19
- testRunner.And("Se escribe \'Description \' en Descripcion", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+ testRunner.And("Se hace click en Nueva categoria en pagina", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
 #line 20
- testRunner.And("Se escribe \'90.1\' en Precio de entrada", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+testRunner.Then("Debería ver botón Agregar categoria mostrado en pagina", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entonces ");
 #line 21
- testRunner.And("Se escribe \'80.1\' en precio de salida", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+testRunner.When("Se escribe \'[random+3]-[random+5]\' en Nombre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Cuando ");
 #line 22
- testRunner.And("Se escribe \'Lts\' en Unidad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+ testRunner.And("Se hace click en Agregar categoria", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
 #line 23
- testRunner.And("Se escribe \'Botella\' en presentacion", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+testRunner.Then("Debería ver botón Nueva categoria mostrado en pagina", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entonces ");
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Columna",
+                        "Valor"});
+            table1.AddRow(new string[] {
+                        "Nombre",
+                        "Tornillos;Herramientas"});
 #line 24
+ testRunner.Then("Deberia ver los siguientes valores en Lista de categorias en pagina", ((string)(null)), table1, "Entonces ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Columna",
+                        "Valor"});
+            table2.AddRow(new string[] {
+                        "Nombre",
+                        "NO-EXISTE"});
+#line 27
+ testRunner.And("No Deberia ver los siguientes valores en Lista de categorias en pagina", ((string)(null)), table2, "Y ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Test Crear producto")]
+        [NUnit.Framework.CategoryAttribute("BVT")]
+        public virtual void TestCrearProducto()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Test Crear producto", new string[] {
+                        "BVT"});
+#line 32
+this.ScenarioSetup(scenarioInfo);
+#line 33
+testRunner.Given("Se navega a \'http://mock1.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
+#line 34
+testRunner.When("Se autentica como usuario por defecto", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Cuando ");
+#line 35
+testRunner.Then("Debería ver \'Administrador\' en Informacion de usuario en cabecera", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entonces ");
+#line 36
+testRunner.When("Se hace click en Productos en menu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Cuando ");
+#line 37
+ testRunner.And("Se hace click en Agregar Producto en pagina", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+#line 38
+ testRunner.And("Se escribe \'[random+8]\' en Codigo de barras", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+#line 39
+ testRunner.And("Se escribe \'[random+5]\' en Nombre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+#line 40
+ testRunner.And("Se selecciona \'Herramientas\' en combo-box Categoria", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+#line 41
+ testRunner.And("Se escribe \'Description [random+17]\' en Descripcion", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+#line 42
+ testRunner.And("Se escribe \'90.1\' en Precio de entrada", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+#line 43
+ testRunner.And("Se escribe \'80.1\' en precio de salida", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+#line 44
+ testRunner.And("Se escribe \'Lts\' en Unidad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+#line 45
+ testRunner.And("Se escribe \'Botella\' en presentacion", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+#line 46
  testRunner.And("Se escribe \'10\' en Minima en inventario", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
-#line 25
+#line 47
  testRunner.And("Se escribe \'90\' en Inventario inicial", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
-#line 26
+#line 48
  testRunner.And("Se hace click en Agregar producto", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Test Date Field")]
+        [NUnit.Framework.CategoryAttribute("BVT")]
+        public virtual void TestDateField()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Test Date Field", new string[] {
+                        "BVT"});
+#line 51
+this.ScenarioSetup(scenarioInfo);
+#line 52
+testRunner.Given("Se navega a \'http://mock1.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
+#line 53
+ testRunner.When("Se autentica como usuario por defecto", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Cuando ");
+#line 54
+testRunner.Then("Debería ver \'Administrador\' en Informacion de usuario en cabecera", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entonces ");
+#line 55
+testRunner.When("Se hace click en Reportes en menu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Cuando ");
+#line 56
+ testRunner.And("Se hace click en Reporte de Ventas en menu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+#line 57
+ testRunner.And("Se selecciona \'newCliente\' en combo-box Tipo de reporte", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+#line 58
+ testRunner.And("Se escribe \'[today]\' en Desde", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+#line 59
+ testRunner.And("Se escribe \'[today]\' en Hasta", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+#line 60
+ testRunner.And("Se hace click en Procesar", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Y ");
+#line 61
+testRunner.Then("Deberia ver \'[today]\' en Desde", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entonces ");
 #line hidden
             this.ScenarioCleanup();
         }

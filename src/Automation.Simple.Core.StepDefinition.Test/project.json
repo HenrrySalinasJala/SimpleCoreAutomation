@@ -3,6 +3,7 @@
     "AngleSharp": "0.9.10",
     "log4net": "2.0.5",
     "NUnit": "3.10.1",
+    "Selenium.Firefox.WebDriver": "0.22.0",
     "Selenium.Support": "3.14.0",
     "Selenium.WebDriver": "3.14.0",
     "Selenium.WebDriver.ChromeDriver": "2.43.0",

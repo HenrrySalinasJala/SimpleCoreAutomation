@@ -39,5 +39,10 @@ namespace Automation.Simple.Core.Environment
         /// key password
         /// </summary>
         public const string PasswordForWebApp = "passwordForWebApp";
+
+        /// <summary>
+        /// key web browser
+        /// </summary>
+        public const string Browser = "browser";
     }
 }

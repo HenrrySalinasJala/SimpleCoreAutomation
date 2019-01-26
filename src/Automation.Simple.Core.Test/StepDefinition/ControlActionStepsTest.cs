@@ -55,9 +55,7 @@
         {
             ScenarioInfo scenarioInfo = new ScenarioInfo("test scenario", new string[] { "Test" });
             ScenarioSetup(scenarioInfo);
-            var testclass = new ControlActionSteps(ScenarioContext.Current, new ControlAction());
-
-
+            var testclass = new ControlActionSteps(ScenarioContext.Current, new ControlActions());
             testRunner.Given("Se escribe \'admin\' en campo Usuario en pagina", ((string)(null)), null, "Given ");
             testRunner.CollectScenarioErrors();
         }
@@ -67,7 +65,7 @@
         {
             ScenarioInfo scenarioInfo = new ScenarioInfo("test scenario", new string[] { "Test" });
             ScenarioSetup(scenarioInfo);
-            var testclass = new ControlActionSteps(ScenarioContext.Current, new ControlAction());
+            var testclass = new ControlActionSteps(ScenarioContext.Current, new ControlActions());
 
             testRunner.Given("Se escribe \'admin\' en campo Usuario", ((string)(null)), (null), "Given ");
             Assert.AreEqual(expectedContainerNameMessage, ScenarioContext.Current.TestError.Message, "unexpected message");
@@ -78,7 +76,7 @@
         {
             ScenarioInfo scenarioInfo = new ScenarioInfo("test scenario", new string[] { "Test" });
             ScenarioSetup(scenarioInfo);
-            var testclass = new ControlActionSteps(ScenarioContext.Current, new ControlAction());
+            var testclass = new ControlActionSteps(ScenarioContext.Current, new ControlActions());
 
             testRunner.Given("Se escribe \'admin\' en ", ((string)(null)), (null), "Given ");
             Assert.AreEqual(expectedControlNameMessage, ScenarioContext.Current.TestError.Message, "unexpected message");
@@ -89,7 +87,7 @@
         {
             ScenarioInfo scenarioInfo = new ScenarioInfo("test scenario", new string[] { "Test" });
             ScenarioSetup(scenarioInfo);
-            var testclass = new ControlActionSteps(ScenarioContext.Current, new ControlAction());
+            var testclass = new ControlActionSteps(ScenarioContext.Current, new ControlActions());
 
             testRunner.Given("Se escribe \'\' en Usuario", ((string)(null)), (null), "Given ");
             Assert.AreEqual(expectedControlValeMessage, ScenarioContext.Current.TestError.Message, "unexpected message");

@@ -25,5 +25,18 @@
             DriverManager.GetInstance().QuitDriver();
         }
 
+        public void TakeScreenshot()
+        {
+            DriverManager.GetInstance().QuitDriver();
+        }
+        /// <summary>
+        /// Takes a screenshot as base64.
+        /// </summary>
+        /// <returns>The screenshot as base64.</returns>
+        public string TakeScreenshotAsBase64()
+        {
+            return DriverManager.GetInstance().TakeScreenshotAsBase64();
+        }
+
     }
 }

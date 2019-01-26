@@ -1,24 +1,35 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Automation.Simple.Core.Selenium
+﻿namespace Automation.Simple.Core.Selenium
 {
+    using Automation.Simple.Core.Enums;
+    using Automation.Simple.Core.Exceptions;
+    using Automation.Simple.Helpers.Utilities;
+    using System;
+
     public static class DriverFactory
     {
         public static IDriver GetDriver(string browser)
         {
-            switch (browser)
+            var browserType = GetRequestAction(browser);
+            switch (browserType)
             {
-                case "Chrome":
+                case BrowserType.Chrome:
                     return new Chrome();
-                case "Firefox":
+                case BrowserType.Firefox:
                     return new Firefox();
                 default:
-                    throw new Exception($"browser {browser} not supported");
+                    throw new BrowserNotSupportedException($"browser {browser} not supported");
+            }
+        }
+
+        private static BrowserType GetRequestAction(string requestActionName)
+        {
+            try
+            {
+                return DescriptionAttributeUtil.GetValueFromDescription<BrowserType>(requestActionName);
+            }
+            catch (Exception error)
+            {
+                throw new Exception($"Unknown browser {requestActionName}, error {error.Message}");
             }
         }
     }

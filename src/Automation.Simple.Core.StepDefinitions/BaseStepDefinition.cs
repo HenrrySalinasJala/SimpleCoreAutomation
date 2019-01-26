@@ -22,11 +22,19 @@
         /// </summary>
         public FeatureContext featureContext;
 
-        protected ControlAction ControlAction
+        protected ControlActions ControlAction
         {
             get
             {
-                return ScenarioContext.ScenarioContainer.Resolve<ControlAction>();
+                return ScenarioContext.ScenarioContainer.Resolve<ControlActions>();
+            }
+        }
+
+        protected LoginActions LoginAction
+        {
+            get
+            {
+                return ScenarioContext.ScenarioContainer.Resolve<LoginActions>();
             }
         }
 
@@ -47,16 +55,18 @@
         {
             this.scenarioContext = scenarioContext;
         }
-        protected BaseStepDefinition(ScenarioContext scenarioContext, ControlAction controlAction)
+        protected BaseStepDefinition(ScenarioContext scenarioContext, ControlActions controlAction)
         {
             this.scenarioContext = scenarioContext;
-//            this.ControlAction = controlAction;
         }
-        protected BaseStepDefinition(ScenarioContext scenarioContext, ControlAction controlAction,
+        protected BaseStepDefinition(ScenarioContext scenarioContext, ControlActions controlAction,
             BrowserActions browserActions)
         {
             this.scenarioContext = scenarioContext;
-            
+        }
+        protected BaseStepDefinition(ScenarioContext scenarioContext, LoginActions loginAction)
+        {
+            this.scenarioContext = scenarioContext;
         }
 
         /// <summary>
@@ -70,5 +80,11 @@
             this.featureContext = featureContext;
         }
 
+        public BaseStepDefinition(ScenarioContext scenarioContext, ControlActions controlAction, 
+            BrowserActions browserActions, FeatureContext featureContext) 
+            : this(scenarioContext, controlAction, browserActions)
+        {
+            this.featureContext = featureContext;
+        }
     }
 }

@@ -46,8 +46,14 @@
         /// <summary>
         /// The dropdown.
         /// </summary>
-        [Description("drop-down-buton")]
+        [Description("drop-down;combo-box")]
         Dropdown,
+
+        /// <summary>
+        /// The multiselect dropdown.
+        /// </summary>
+        [Description("multiselect-dropdown")]
+        MultiselectDropdown,
 
         /// <summary>
         /// The table.

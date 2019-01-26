@@ -1,16 +1,16 @@
 ﻿namespace Automation.Simple.Core.StepDefinitions.ControlSteps
 {
+    using Automation.Simple.Core.StepDefinitions.DataTransformationTypes;
     using Automation.Simple.Core.UI.Actions.Control;
     using Automation.Simple.Core.UI.Actions.Enums;
     using NUnit.Framework;
     using System;
-    using System.Collections.Generic;
     using TechTalk.SpecFlow;
 
     [Binding]
     public class ControlActionVerificationSteps : BaseStepDefinition
     {
-        protected ControlActionVerificationSteps(ScenarioContext scenarioContext, ControlAction controlAction) : base(scenarioContext, controlAction)
+        protected ControlActionVerificationSteps(ScenarioContext scenarioContext, ControlActions controlAction) : base(scenarioContext, controlAction)
         {
         }
 
@@ -21,8 +21,8 @@
         /// <param name="expectedValue">The expected value.</param>
         /// <param name="controlName">The control name.</param>
         /// <param name="frame">The container name.</param>
-        [Then(@"(No |)Deberia ver '(.*?)' en(?: campo| combo-box| label| etiqueta|) (.*?)(?: en ([^']+?)|)(?: modal| form| section| panel| item| link|)")]
-        public void VerifyControlValue(string not, string expectedValue, string controlName,
+        [Then(@"(?i)(No |)Deber(?:i|í)a ver '(.*?)' en(?: campo| drop-down| combo-box| bot(?:o|ó)n| modal| link| label| texto|) (.*?)(?: en ((?!(?:[^en].*en){1})[^']+?)|)(?: modal| formulario| secci(?:o|ó)n| panel| item| link|)(?-i)")]
+        public void VerifyControlContainsValue(string not, IStepArgument expectedValue, string controlName,
             string frame)
         {
             var actualValue = ControlAction.ExecuteFunction(controlName, ActionType.GetText,
@@ -39,55 +39,33 @@
             }
         }
 
-        [Then(@"I should( not|) see the following values in ([^']+?)(?: grid|)(?: on ([^']+?)|)(?: modal| form| section|)")]
-        public void TableHasTheFollowingValues(string not, string controlName, string containerName,
-            Dictionary<string, string> dataTable)
-        {
-            CompareGridValues(not, null, controlName, containerName);
-        }
-
         /// <summary>
-        /// Compares the expected values on the transaction table.
+        /// Verifies that the web control is or not displayed.
         /// </summary>
-        /// <param name="not">The value to check to assert true or false</param>
-        /// <param name="expectedTransactions">
-        /// List&lt;Dictionary&lt;string, string&gt;&gt; represents the expected values in the transaction table.
-        /// </param>
-        /// <param name="controlName">string parameter represents the control name.</param>
-        /// <param name="containerName">The web control's container name</param>
-        private void CompareGridValues(string not, List<Dictionary<string, string>> expectedTransactions,
-            string controlName, string containerName)
+        /// <param name="not">The assertion.</param>
+        /// <param name="controlName">The control name.</param>
+        /// <param name="containerName">The container name.</param>
+        [Then(@"(?i)(No |)Deber(?:i|í)a ver(?: campo| drop-down| combo-box| bot(?:o|ó)n| modal| link| label| texto|) (.*?) mostrado(?: en ((?!(?:[^en].*en){1})[^']+?)|)(?: modal| formulario| secci(?:o|ó)n| panel|)(?-i)")]
+        public void VerifyControlIsDisplayed(string not, string controlName, string containerName)
         {
-            try
+            if (string.IsNullOrEmpty(not))
             {
-                if (string.IsNullOrEmpty(containerName))
+                Func<bool> isControlDisplayed = delegate ()
                 {
-                    containerName = "pagina";
-                }
-                for (int i = 0; i < expectedTransactions.Count; i++)
-                {
-                    foreach (var transaction in expectedTransactions[i])
-                    {
-                        if (!"[skip]".Equals(transaction.Value.ToLower()))
-                        {
-                            var expectedValue = expectedTransactions[i][transaction.Key];
-                            bool cellExists = (bool)ControlAction.ExecuteFunction(controlName, ActionType.Exist,
-                                containerName, i, transaction.Key, expectedValue);
-                            if (string.IsNullOrEmpty(not))
-                            {
-                                Assert.True(cellExists, "The grid does not contain the value: " + expectedValue);
-                            }
-                            else
-                            {
-                                Assert.False(cellExists, "The grid contains the value: " + expectedValue);
-                            }
-                        }
-                    }
-                }
+                    return (bool)ControlAction.ExecuteFunction(controlName.ToString(),
+                        ActionType.WaitForControlToBeDisplayed, containerName);
+                };
+
+                Assert.That(isControlDisplayed, $"Element '{controlName}' is not displayed.");
             }
-            catch (Exception error)
+            else
             {
-                throw new Exception(string.Format("Unable to search in {0} grid. Error: {1}", controlName, error.Message));
+                Func<bool> isNotDisplayed = delegate ()
+                {
+                    return (bool)ControlAction.ExecuteFunction(controlName.ToString(),
+                    ActionType.WaitForControlToNotBeDisplayed, containerName); ;
+                };
+                Assert.That(isNotDisplayed, $"Unable to check if element '{controlName}' is not displayed.");
             }
         }
     }

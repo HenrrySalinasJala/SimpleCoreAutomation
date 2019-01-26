@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SimpleCoreAutomation</id>
+    <version>0.0.1</version>
+    <authors>SimpleCore Automation Team</authors>
+    <owners>SimpleCore Automation  Team</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>SimpleCore Automation  has a simpler and efficient way of running automation scenario test cases.</description>
+    <releaseNotes>Simple Core Automation</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>Core, Automation, Simple, Control</tags>
+    <dependencies>
+      <dependency id="log4net" version="2.0.5"/>
+      <dependency id="AngleSharp" version="0.9.10"/>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Automation.Simple.Core.UI.Actions\bin\Debug\Automation.Simple.Core.UI.Actions.dll" target="lib\net452" />
+    <file src="Automation.Simple.Core.UI.Actions\bin\Debug\Automation.Simple.Core.UI.dll" target="lib\net452" />
+    <file src="Automation.Simple.Core.UI.Actions\bin\Debug\Automation.Simple.Core.dll" target="lib\net452" />
+    <file src="Automation.Simple.Core.UI.Actions\bin\Debug\Automation.Simple.Helpers.dll" target="lib\net452" />
+  </files>
+</package>

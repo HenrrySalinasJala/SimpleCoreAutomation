@@ -12,12 +12,12 @@ namespace Automation.Simple.Core.StepDefinitions.ControlSteps
     [Binding]
     public class BrowserSteps : BaseStepDefinition
     {
-        protected BrowserSteps(ScenarioContext scenarioContext, ControlAction controlAction) : base(scenarioContext, controlAction)
+        protected BrowserSteps(ScenarioContext scenarioContext, ControlActions controlAction) : base(scenarioContext, controlAction)
         {
         }
 
-        [Given(@"I go to '(.*?)'")]
-        [When(@"I go to '(.*?)'")]
+        [Given(@"Se navega a '(.*?)'")]
+        [When(@"Se navega a '(.*?)'")]
         public void GivenIGoThePag(string url)
         {
             var browserActions = new BrowserActions();

@@ -1,10 +1,9 @@
 ﻿namespace Automation.Simple.Core.UI.Controls.Table
 {
     using Automation.Simple.Core.UI.Constants;
-    using Automation.Simple.Core.UI.Controls.Browser;
     using Automation.Simple.Core.UI.Enums;
     using Automation.Simple.Core.UI.Exceptions;
-    using Link;
+    using Force.DeepCloner;
     using OpenQA.Selenium;
     using System;
     using System.Collections.Generic;
@@ -68,6 +67,7 @@
         {
             get
             {
+                log.Info("getting table header");
                 return Control.FindElement(By.XPath(HeaderXPath));
             }
         }
@@ -79,6 +79,7 @@
         {
             get
             {
+                log.Info("getting table body");
                 return Control.FindElement(By.XPath(BodyXPath));
             }
         }
@@ -90,12 +91,21 @@
         {
             get
             {
+                log.Info("getting table rows");
                 IReadOnlyCollection<IWebElement> rows = new List<IWebElement>();
-                if (!string.IsNullOrEmpty(Body.GetAttribute(DOMAttributes.InnerHtmlAttribute)))
+                try
                 {
-                    rows = Body.FindElements(By.TagName(RowTagName));
+                    if (!string.IsNullOrEmpty(Body.GetAttribute(DOMAttributes.InnerHtmlAttribute)))
+                    {
+                        rows = Body.FindElements(By.TagName(RowTagName));
+                    }
+                    return rows;
                 }
-                return rows;
+                catch (Exception error)
+                {
+                    log.Error("error getting rows");
+                    throw new Exception($"Unable to get table rows {error.Message}");
+                }
             }
         }
 
@@ -106,12 +116,25 @@
         {
             get
             {
+                log.Info("getting cells");
                 var cells = new List<IReadOnlyCollection<IWebElement>>();
-                foreach (var row in Rows)
+                try
                 {
-                    cells.Add(row.FindElements(By.XPath(CellsLocator)));
+                    var tableRows = Rows.DeepClone();
+                    foreach (var row in tableRows)
+                    {
+                        if (!row.GetAttribute(DOMAttributes.InnerHtmlAttribute).Contains("</th>"))
+                        {
+                            cells.Add(row.FindElements(By.XPath(CellsLocator)));
+                        }
+                    }
+                    return cells;
                 }
-                return cells;
+                catch (Exception error)
+                {
+                    log.Error("error getting cells");
+                    throw new Exception($"Unable to get table cells {error.Message}");
+                }
             }
         }
 
@@ -289,7 +312,7 @@
             }
             else if (innerHTML.Contains("</div>"))
             {
-                value = cell.FindElement(By.TagName("div")).GetAttribute("innerHTML");
+                value = cell.FindElement(By.TagName("div")).GetAttribute("innerHTML").Trim();
             }
             //default
             else
@@ -304,7 +327,7 @@
                     value = innerHTML;
                 }
             }
-            return value;
+            return value.Trim();
         }
 
         /// <summary>
@@ -364,7 +387,8 @@
             {
                 var cellValues = new List<List<string>>();
                 log.Info($"Get the value of the cells from '{Name}' {Type}.");
-                foreach (var cellsPerRow in Cells)
+                var currentCells = Cells.DeepClone();
+                foreach (var cellsPerRow in currentCells)
                 {
                     var rowValues = new List<string>();
                     foreach (var cell in cellsPerRow)
@@ -381,8 +405,6 @@
             }
         }
 
-        
-
         public bool Exists(List<Dictionary<string, string>> expectedTransactions)
         {
             try
@@ -390,15 +412,8 @@
                 bool areContained = true;
                 for (int i = 0; i < expectedTransactions.Count; i++)
                 {
-                    foreach (var transaction in expectedTransactions[i])
-                    {
-                        if (!"[skip]".Equals(transaction.Value.ToLower()))
-                        {
-                            var expectedValue = expectedTransactions[i][transaction.Key];
-                            bool cellExists = Exist(i, transaction.Key, expectedValue);
-                            areContained &= cellExists;
-                        }
-                    }
+                    var exists = Exists(expectedTransactions[i]);
+                    areContained &= exists;
                 }
                 return areContained;
             }
@@ -429,7 +444,7 @@
             }
             catch (Exception error)
             {
-                throw new Exception($"Unable to search in {Name} grid. Error: {error.Message}");
+                throw new ControlActionExecutionException(Name, Type, error.Message);
             }
         }
 
@@ -470,263 +485,6 @@
             }
         }
 
-
-
-        /// <summary>
-        /// Validates if the table contains a cell with disabled value.
-        /// </summary>
-        /// <param name="rowIndex">The table row index.</param>
-        /// <param name="columnName">The table column name.</param>
-        /// <param name="cellText">The Table cell content.</param>
-        /// <returns>True if the cell content is enabled otherwise false.</returns>
-        //public bool IsEnabled(int rowIndex, string columnName, string cellText)
-        //{
-        //    var columnIndex = GetColumnIndex(columnName);
-        //    var cell = Cells.ElementAt(rowIndex).ElementAt(columnIndex);
-        //    bool isEnabled = IsCellEnabled(cell, columnName.ToLower(), cellText);
-
-        //    log.Info($"Element '{cellText}' in {Name} table: {rowIndex} row and {columnName} column " +
-        //        $"enabled status is: {isEnabled}.");
-
-        //    return isEnabled;
-        //}
-
-        ///// <summary>
-        ///// Checks if the Table cell is enabled.
-        ///// </summary>
-        ///// <param name="cell">IWebElement parameter, represents the cell element.</param>
-        ///// <param name="columnName">The table column name.</param>
-        ///// <param name="cellText">The Table cell content.</param>
-        ///// <returns>True if the cell element is enabled otherwise false.</returns>
-        ///// <exception cref="Exception">
-        ///// throws an exception if it is not possible to check if the cell is enabled.
-        ///// </exception>
-        //private bool IsCellEnabled(IWebElement cell, string columnName, string cellText)
-        //{
-        //    switch (columnName)
-        //    {
-        //        case "action":
-        //        case "":
-        //            var ActionLinks = cell.FindElements(By.TagName(DOMAttributes.LinkTagName));
-        //            var linkElement = ActionLinks.ToList().Find(link => link.Text.Contains(cellText));
-        //            var linkControl = new Link(cellText, linkElement, TimeoutInSeconds);
-        //            return linkControl.IsEnabled();
-
-        //        case "select":
-        //            var checkBoxControl = new Checkbox(columnName, cell, TimeoutInSeconds);
-        //            return checkBoxControl.IsEnabled();
-
-        //        default:
-        //            throw new Exception(string.Format("Unable to check if the cell with value {0} " +
-        //                                            "in column {1} is enabled", cellText, columnName));
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Gets the cell's type.
-        ///// </summary>
-        ///// <param name="cell">The cell.</param>
-        ///// <returns>The cell type.</returns>
-        //private CellType GetCellType(IWebElement cell)
-        //{
-        //    try
-        //    {
-        //        var innerHTML = cell.GetAttribute("innerHTML");
-
-        //        if (innerHTML.Contains("</a>"))
-        //            return CellType.Link;
-        //        else
-        //        {
-        //            BrowserMngr.Instance.GetActions().MoveToElement(cell).Click().Build().Perform();
-        //            BrowserExtension.WaitForAngular(TimeoutInSeconds);
-
-        //            innerHTML = cell.GetAttribute("innerHTML");
-
-        //            if (innerHTML.Contains("<input"))
-        //            {
-        //                var inputField = cell.FindElements(By.XPath("descendant::input")).Last();
-        //                var dataRole = inputField.GetAttribute("data-role");
-        //                var textType = inputField.GetAttribute("type");
-
-        //                if (!string.IsNullOrEmpty(dataRole))
-        //                    switch (dataRole)
-        //                    {
-        //                        case "combobox":
-        //                            return CellType.TextLookup;
-
-        //                        case "datepicker":
-        //                            return CellType.DateField;
-
-        //                        case "numerictextbox":
-        //                            return CellType.NumericField;
-
-        //                        case "madcalculatorinput":
-        //                            return CellType.CurrencyField;
-
-        //                        default:
-        //                            break;
-        //                    }
-        //                else if (!string.IsNullOrEmpty(textType))
-        //                    switch (textType)
-        //                    {
-        //                        case "checkbox":
-        //                            return CellType.Checkbox;
-
-        //                        case "text":
-        //                            return CellType.TextField;
-
-        //                        default:
-        //                            break;
-        //                    }
-        //            }
-        //        }
-        //        return CellType.NoEditable;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        log.Error("Unable to get cell type from '{0}' {1}. Error [{2}].", Name,
-        //            Type.ToString(), e.Message);
-
-        //        return CellType.NoEditable;
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Sets a value to a cell.
-        ///// </summary>
-        ///// <param name="cell">The cell control.</param>
-        ///// <param name="value">The cell value.</param>
-        //private void SetCell(IWebElement cell, string value)
-        //{
-        //    var cellType = GetCellType(cell);
-        //    BrowserExtension.WaitForAngular(TimeoutInSeconds);
-
-        //    switch (cellType)
-        //    {
-        //        case CellType.TextField:
-        //            SetTextField(cell, value);
-        //            break;
-
-        //        case CellType.TextLookup:
-        //            SetTextLookup(cell, value);
-        //            break;
-
-        //        case CellType.DateField:
-        //            SetDateField(cell, value);
-        //            break;
-
-        //        case CellType.CurrencyField:
-        //            SetCurrencyField(cell, value);
-        //            break;
-
-        //        case CellType.Checkbox:
-        //            SetCheckbox(cell, value);
-        //            break;
-
-        //        case CellType.NumericField:
-        //            SetNumericField(cell, value);
-        //            break;
-
-        //        default:
-        //            break;
-        //    }
-
-        //    BrowserExtension.WaitForAngular(TimeoutInSeconds);
-        //}
-
-        ///// <summary>
-        ///// Sets a cell of text field type.
-        ///// </summary>
-        ///// <param name="cell">The cell.</param>
-        ///// <param name="value">The value.</param>
-        //private void SetTextField(IWebElement cell, string value)
-        //{
-        //    var textFieldXPath = "input";
-        //    var inputField = cell.FindElement(By.XPath(textFieldXPath));
-        //    inputField.Clear();
-        //    inputField.SendKeys(value);
-        //    inputField.SendKeys(Keys.F2);
-        //}
-
-        ///// <summary>
-        ///// Sets a cell of numeric field type.
-        ///// </summary>
-        ///// <param name="cell">The cell.</param>
-        ///// <param name="value">The value.</param>
-        //private void SetNumericField(IWebElement cell, string value)
-        //{
-        //    var numericXPath = "descendant::input[@data-role='numerictextbox']";
-        //    var inputField = cell.FindElement(By.XPath(numericXPath));
-        //    inputField.Clear();
-        //    inputField.SendKeys(value);
-        //    inputField.SendKeys(Keys.F2);
-        //}
-
-        ///// <summary>
-        ///// Sets a cell of text lookup type.
-        ///// </summary>
-        ///// <param name="cell">The cell.</param>
-        ///// <param name="value">The value.</param>
-        //private void SetTextLookup(IWebElement cell, string value)
-        //{
-        //    var textLookupXPath = "descendant::input[@role='combobox']";
-        //    var inputField = cell.FindElement(By.XPath(textLookupXPath));
-        //    inputField.Clear();
-        //    inputField.SendKeys(value);
-        //    inputField.SendKeys(Keys.F2);
-        //}
-
-        ///// <summary>
-        ///// Sets a cell of checkbox type.
-        ///// </summary>
-        ///// <param name="cell">The cell.</param>
-        ///// <param name="value">The value.</param>
-        //private void SetCheckbox(IWebElement cell, string value)
-        //{
-        //    var checkboxXPath = "descendant::input[@type='checkbox']";
-        //    var inputField = cell.FindElement(By.XPath(checkboxXPath));
-        //    bool check;
-        //    bool converted = bool.TryParse(value, out check);
-
-        //    if (converted)
-        //    {
-        //        if (!inputField.Selected.Equals(check))
-        //            inputField.Click();
-        //    }
-        //    else
-        //    {
-        //        throw new Exception(string.Format("{0} is not a valid value. Try 'true' or 'false'", value));
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Sets a cell of currency field type.
-        ///// </summary>
-        ///// <param name="cell">The cell.</param>
-        ///// <param name="value">The value.</param>
-        //private void SetCurrencyField(IWebElement cell, string value)
-        //{
-        //    var currencyFieldXPath = "descendant::input[@data-role='madcalculatorinput']";
-        //    var inputField = cell.FindElement(By.XPath(currencyFieldXPath));
-        //    inputField.Clear();
-        //    inputField.SendKeys(value);
-        //    inputField.SendKeys(Keys.F2);
-        //}
-
-        ///// <summary>
-        ///// Sets a cell of date field type.
-        ///// </summary>
-        ///// <param name="cell">The cell.</param>
-        ///// <param name="value">The value.</param>
-        //private void SetDateField(IWebElement cell, string value)
-        //{
-        //    var dateFieldXPath = "descendant::input[@data-role='datepicker']";
-        //    var inputField = cell.FindElement(By.XPath(dateFieldXPath));
-        //    inputField.Clear();
-        //    inputField.SendKeys(value);
-        //    inputField.SendKeys(Keys.F2);
-        //}
-
         ///// <summary>
         ///// Gets the column index based on the column name.
         ///// </summary>
@@ -734,6 +492,7 @@
         ///// <returns>The column index.</returns>
         private int GetColumnIndex(string columnName)
         {
+            log.Info($"getting column name {columnName}");
             var headers = Header.FindElements(By.XPath(HeadersLocator));
             for (int index = 0; index < headers.Count; index++)
             {

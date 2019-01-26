@@ -4,7 +4,6 @@
     using Automation.Simple.Core.Selenium;
     using Automation.Simple.Core.UI.Controls.Browser;
     using Automation.Simple.Core.UI.Controls.Locators;
-    using Automation.Simple.Core.UI.Controls.Table;
     using Automation.Simple.Core.UI.Enums;
     using Automation.Simple.Helpers;
     using log4net;
@@ -12,14 +11,16 @@
     using OpenQA.Selenium.Interactions;
     using OpenQA.Selenium.Support.UI;
     using System;
-    using System.Collections.Generic;
 
-    public abstract class BaseControl : IWebControl
+    public abstract class BaseControl
     {
         /// <summary>
         /// The logger instance.
         /// </summary>
-        protected static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        protected static readonly ILog log = LogManager.GetLogger(System.Reflection
+                                                                        .MethodBase
+                                                                        .GetCurrentMethod()
+                                                                        .DeclaringType);
 
         protected IWebDriver Driver;
 
@@ -58,6 +59,7 @@
         public BaseControl(XPath locator)
         {
             Locator = By.XPath(locator.Locator);
+            _type = ControlType.NotExistingControl;
             SetUpControl();
         }
 
@@ -78,15 +80,13 @@
             _control = control;
             SetUpControl();
         }
+
         private void SetUpControl()
         {
-            
-            _type = ControlType.NotExistingControl;
             Driver = DriverManager.GetInstance().GetDriver();
             Wait = DriverManager.GetInstance().GetWait();
             Action = Driver != null ? new Actions(Driver) : null;
         }
-
 
         /// <summary>
         /// The selenium control.
@@ -118,6 +118,7 @@
 
                     _control = Driver.FindElement(Locator);
                 }
+                MoveToControl(_control);
                 return _control;
             }
             set
@@ -159,6 +160,23 @@
         }
 
         /// <summary>
+        /// Moves to the given element.
+        /// </summary>
+        /// <param name="control">The control to move to.</param>
+        public void MoveToControl(IWebElement control)
+        {
+            try
+            {
+                Action.MoveToElement(control)
+                       .Perform();
+            }
+            catch (Exception error)
+            {
+                log.Error($"Unable to move to element {error.Message}");
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating whether or not this element is enabled.
         /// </summary>
         public virtual bool IsEnabled()
@@ -176,14 +194,104 @@
             }
         }
 
-
+        /// <summary>
+        /// Blocks the current thread until this control ceases to be displayed on the web page,
+        /// or until the timeout specified by the same expires.
+        /// </summary>
+        /// <returns>
+        /// True if the wait succeeds i.e. this control ceases to be displayed before the timeout,
+        /// false otherwise.
+        /// </returns>
+        public bool WaitForControlToNotBeDisplayed()
+        {
+            return WaitForControlToNotBeDisplayed(TimeoutInSeconds);
+        }
 
         /// <summary>
-        /// Gets a value indicating if the browser manager instance is null or not.
+        /// Blocks the current thread until this control ceases to be displayed on the web page,
+        /// or until the timeout specified by the same expires.
         /// </summary>
-        public bool IsDriverNull
+        /// <param name="timeout">The new timeout (in seconds).</param>
+        /// <returns>
+        /// True if the wait succeeds i.e. this control ceases to be displayed before the timeout,
+        /// false otherwise.
+        /// </returns>
+        public bool WaitForControlToNotBeDisplayed(int timeout)
         {
-            get { return Driver == null; }
+            try
+            {
+                log.Info($"Waiting until '{Name}' {Type} is not displayed.");
+                var timeoutInSeconds = TimeSpan.FromSeconds(timeout);
+                var waitIntervalInMilliseconds = TimeSpan.FromMilliseconds(Config.WaitIntervalInMilliseconds);
+                var timeoutHelper = new TimeoutHelper(timeoutInSeconds, waitIntervalInMilliseconds);
+                return timeoutHelper.WaitFor(() =>
+                {
+                    return !IsDisplayed();
+                });
+            }
+            catch (Exception error)
+            {
+                log.Error($"Unexpected error waiting for the '{Name}' {Type}. Error: [{error.Message}].");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Blocks the current thread until this control is displayed on the web page,
+        /// or until the timeout specified by the control expires.
+        /// </summary>
+        /// <param name="timeout">The new timeout (in seconds).</param>
+        /// <returns>
+        /// True if the wait succeeds i.e. the control is displayed before the timeout, false
+        /// otherwise.
+        /// </returns>
+        public bool WaitForControlToBeDisplayed(int timeout)
+        {
+            try
+            {
+                log.Info($"Waiting until '{Name}' {Type} is displayed.");
+                var timeoutInSeconds = TimeSpan.FromSeconds(timeout);
+                var waitIntervalInMilliseconds = TimeSpan.FromMilliseconds(Config.WaitIntervalInMilliseconds);
+                var timeoutHelper = new TimeoutHelper(timeoutInSeconds, waitIntervalInMilliseconds);
+                return timeoutHelper.WaitFor(() =>
+                {
+                    return IsDisplayed();
+                });
+            }
+            catch (Exception error)
+            {
+                log.Error($"Unexpected error waiting for the '{Name}' {Type}. Error: [{error.Message}].");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Blocks the current thread until this control is displayed on the web page,
+        /// or until the timeout specified by the control expires.
+        /// </summary>
+        /// <returns>
+        /// True if the wait succeeds i.e. the control is displayed before the timeout, false
+        /// otherwise.
+        /// </returns>
+        public bool WaitForControlToBeDisplayed()
+        {
+            return WaitForControlToBeDisplayed(TimeoutInSeconds);
+        }
+
+        internal object ExecuteScript(string script, params object[] args)
+        {
+            try
+            {
+                var javascriptExecutor = Driver as IJavaScriptExecutor;
+                var result = javascriptExecutor.ExecuteScript(script, args);
+                log.Debug($"Execute the script '{script}'. Result returned: [{result}].");
+                return result;
+            }
+            catch (Exception e)
+            {
+                log.Debug($"Unable to execute the script '{script}'. Error [{e.Message}].");
+                return null;
+            }
         }
     }
 }
